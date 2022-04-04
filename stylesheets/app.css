@@ -1,0 +1,56 @@
+* {
+  font-family: 'Cabin', sans-serif;
+}
+
+body {
+  background-color: rgb(253, 243, 225);
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: .25rem;
+  box-shadow: 0 0 5px 2px black;
+  margin: 5px 5px;
+  height: 300px;
+  width: 300px;
+  background-color: aliceblue;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.delete {
+  display: flex;
+  flex-direction: row;
+  height: 20px;
+}
+
+
+button {
+  background-color:azure;
+  border-radius: .25rem;
+  
+}
+
+button:hover {
+  
+}
+
+form {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+input {
+  transition: width 0.4s ease-in-out;
+}
+
+input:focus {
+  width: 50%
+}
