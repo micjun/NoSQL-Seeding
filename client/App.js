@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import FlashcardList from './components/FlashcardList';
+import infocardList from './components/infocardList';
 import CardCreator from './components/CardCreator';
 import '../stylesheets/app.css'
 import { v4 as uuidv4 } from "uuid";
@@ -9,8 +9,8 @@ import axios from 'axios'
 
 
 function App() {
-  const [flashcard, setFlashcard] = useState({question: '', answer: ''})
-  const [flashcards, setFlashcards] = useState(SAMPLE_FLASHCARDS)
+  const [infocard, setInfocard] = useState({question: '', answer: ''})
+  const [infocards, setInfocards] = useState(SAMPLE_INFOCARDS)
 
   useEffect(() => {
     axios
@@ -23,24 +23,24 @@ function App() {
             question: res.data.Items[i].Question,
             answer: res.data.Items[i].Answer
           }
-          SAMPLE_FLASHCARDS.push(obj)
+          SAMPLE_INFOCARDS.push(obj)
         }
-        console.log(SAMPLE_FLASHCARDS)
+        console.log(SAMPLE_INFOCARDS)
       })
   }, [])
 
   const addCard = (el) => {
     el.preventDefault()
-    const { question, answer } = flashcard;
+    const { question, answer } = infocard;
     const validForm = question && answer;
     if (!validForm) {
       return;
     }
-    setFlashcards((flashcards) => [
-      ...flashcards,
+    setInfocards((infocards) => [
+      ...infocards,
       {
         id: uuidv4(),
-        ...flashcard
+        ...infocard
       }
     ])
   }
@@ -48,9 +48,9 @@ function App() {
   const sync = (el) => {
     el.preventDefault()
     let newSync = {}
-    newSync.Answer = flashcards[flashcards.length -1].answer
-    newSync.id = flashcards[flashcards.length -1].id
-    newSync.Question = flashcards[flashcards.length -1].question
+    newSync.Answer = infocards[infocards.length -1].answer
+    newSync.id = infocards[infocards.length -1].id
+    newSync.Question = infocards[infocards.length -1].question
     console.log(newSync)
     axios
       .post('http://localhost:3000/questions', (newSync))
@@ -64,10 +64,10 @@ function App() {
   }
 
   const deleteCard = (el) => {
-    const flashcardKey = flashcards[el];
-    setFlashcards((flashcards) => flashcards.filter((_, i) => i !== el));
+    const infocardKey = infocards[el];
+    setInfocards((infocards) => infocards.filter((_, i) => i !== el));
     axios
-      .delete(`http://localhost:3000/questions/${flashcardKey.id}`)
+      .delete(`http://localhost:3000/questions/${infocardKey.id}`)
       .then(response => {
         console.log('deleted')
         return;
@@ -84,40 +84,33 @@ function App() {
         <div>
           <label>Question </label>
           <input
-            value={flashcard.question}
+            value={infocard.question}
             onChange={(e) =>
-              setFlashcard((flashcard) => ({ ...flashcard, question: e.target.value }))
+              setInfocard((infocard) => ({ ...infocard, question: e.target.value }))
             }
           />
         </div>
         <div>
           <label>Answer </label>
           <input
-            value={flashcard.answer}
+            value={infocard.answer}
             onChange={(e) =>
-              setFlashcard((flashcard) => ({ ...flashcard, answer: e.target.value }))
+              setInfocard((infocard) => ({ ...infocard, answer: e.target.value }))
             }
           />
         </div>
         <button type="submit">submit</button>
       </form>
         <button id="sync" onClick={sync}>sync</button>
-        {/* {flashcards.map((flashcard, index) => {
-          return (
-            <div key = {flashcard.id}>
-              <button onClick= {() => deleteCard(index)}>delete</button>
-            </div>
-          )
-        })} */}
     </div>
     <div>
-      <FlashcardList flashcards = { flashcards } deleteCard = { deleteCard }/>
+      <infocardList infocards = { infocards } deleteCard = { deleteCard }/>
     </div>
     </>
   )
 }
 
-const SAMPLE_FLASHCARDS = [
+const SAMPLE_INFOCARDS = [
   
 ]
 
