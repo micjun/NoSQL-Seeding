@@ -18,8 +18,6 @@ const getQuestion = async () => {
   return questions
 }
 
-// getQuestion();
-
 const addOrUpdateQuestion = async (question) => {
   const params = {
     TableName: TABLE_NAME,
@@ -27,14 +25,6 @@ const addOrUpdateQuestion = async (question) => {
   }
   await dynamoClient.put(params).promise();
 }
-
-// const que = {
-//   id: 10,
-//   Question: 'test',
-//   Answer: 'test1'
-// }
-
-// addOrUpdateQuestion(que)
 
 const getQuestionById = async (id) => {
   const params = {
@@ -46,8 +36,6 @@ const getQuestionById = async (id) => {
   return await dynamoClient.get(params).promise();
 }
 
-// getQuestionById(1)
-
 const deleteQuestion = async (id) => {
   const params = {
     TableName: TABLE_NAME,
@@ -57,8 +45,6 @@ const deleteQuestion = async (id) => {
   }
   await dynamoClient.delete(params).promise();
 }
-
-// deleteQuestion(2)
 
 module.exports = {
   dynamoClient,
